@@ -3,7 +3,7 @@ using TMPro; // Make sure to include this for TextMeshPro elements
 
 public class ScoreTrigger : MonoBehaviour
 {
-    public int score = 0; // Current score
+    public int score = 0; // default score == 0
     public Transform respawnPoint; // Reference to the respawn location
     public TextMeshProUGUI scoreText; // Reference to the TextMeshPro element
 

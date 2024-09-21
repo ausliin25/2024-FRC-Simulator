@@ -9,17 +9,16 @@ public class PickupItem : MonoBehaviour
 
     public float pickUpDistance;
     public float forceMulti;
-    public float rotationSpeed = 10f; // Speed of rotation
+    public float rotationSpeed = 10f; // speed of rotation
 
     public bool readyToThrow;
     public bool itemIsPicked;
 
     private Rigidbody rb;
-    private float currentAngle = 0f; // Track the current angle
+    private float currentAngle = 0f; // track the current angle
 
-    private Vector3 impulseDirection = Vector3.forward; // Default direction
+    private Vector3 impulseDirection = Vector3.forward; // the default direction
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -56,10 +55,10 @@ public class PickupItem : MonoBehaviour
 
         if (Input.GetKey(KeyCode.P) && itemIsPicked)
         {
-            // Update angle while key is held down
+            // change angle while key is held down
             currentAngle += rotationSpeed * Time.deltaTime;
-            currentAngle = Mathf.Clamp(currentAngle, 0f, 60f); // Limit angle to 0-60 degrees
-            transform.localRotation = Quaternion.Euler(-currentAngle, 0f, 0f); // Apply the angle
+            currentAngle = Mathf.Clamp(currentAngle, 0f, 60f); // keep the angle between 0-60 degrees
+            transform.localRotation = Quaternion.Euler(-currentAngle, 0f, 0f); // set the angle
         }
 
         if (Input.GetKeyUp(KeyCode.Q) && itemIsPicked)
@@ -74,26 +73,23 @@ public class PickupItem : MonoBehaviour
                 GetComponent<BoxCollider>().enabled = true;
                 rb.isKinematic = false;
 
-                // Set the impulse direction based on current rotation
-                Vector3 forceDirection = GetImpulseDirection(); // Get the direction
+                Vector3 forceDirection = GetImpulseDirection(); // get the direction
                 AddForceAtAngle(forceMulti, forceDirection);
 
                 itemIsPicked = false;
                 forceMulti = 0;
                 readyToThrow = false;
 
-                // Reset angle after throwing
                 currentAngle = 0f;
                 transform.localRotation = Quaternion.identity;
             }
         }
     }
 
-    // Get the impulse direction based on the object's rotation
+    // get the impulse direction based on the object's rotation
     Vector3 GetImpulseDirection()
     {
-        // Example: flipping the direction based on the current forward direction
-        return transform.forward; // Change this to adjust the direction as needed
+        return transform.forward; 
     }
 
     public void AddForceAtAngle(float force, Vector3 direction)
